@@ -1,20 +1,19 @@
 const express = require("express");
-const app = express();
-
 const cookieParser = require("cookie-parser");
 
-const db = require("./db/models/index");
-
 const pokemonRouter = require("./routes/pokemon.route.js");
+const trainerRouter = require("./routes/trainer.route.js");
 
-app.use(express.json());
+const db = require("./db/models/index");
+db.sequelize.sync();
+
+const app = express();
+
 app.use(cookieParser());
+app.use(express.json());
 
 app.use("/pokemons", pokemonRouter);
-
-
-
-db.sequelize.sync();
+app.use("/trainers", trainerRouter);
 
 // default error handler
 app.use((err, req, res, next) => {
