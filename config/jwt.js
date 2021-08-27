@@ -15,10 +15,17 @@ const createJWTToken = (username) => {
   const secret = getJWTSecret();
   exp.setDate(today.getDate() + 60); // adding days
 
-  const payload = { username: username, exp: parseInt(exp.getTime() / 1000) };
-  // alternatively
-  // jwt.sign(payload, secret, { expiresIn: "7d" });
-  const token = jwt.sign(payload, secret);
+  // Method 1
+  // const payload = {
+  //   username: username,
+  //   exp: Math.floor(Date.now() / 1000) + 10,
+  // }; // 10 seconds
+  // const token = jwt.sign(payload, secret);
+
+  // Method 2
+  const payload = { username };
+  const token = jwt.sign(payload, secret, { expiresIn: "1m" });
+
   return token;
 };
 
