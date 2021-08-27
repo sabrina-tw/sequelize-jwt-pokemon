@@ -25,4 +25,19 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+router.get("/:id", async (req, res, next) => {
+  try {
+    const pokemonId = req.params.id;
+    const pokemon = await db.Pokemon.findByPk(pokemonId); // returns null if not found
+
+    if (pokemon === null) {
+      res.sendStatus(404);
+    } else {
+      res.json(pokemon);
+    }
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
