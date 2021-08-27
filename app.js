@@ -1,7 +1,10 @@
 const express = require("express");
 const app = express();
+const db = require("./db/models/index");
 
 app.use(express.json());
+
+db.sequelize.sync();
 
 // default error handler
 app.use((err, req, res, next) => {
