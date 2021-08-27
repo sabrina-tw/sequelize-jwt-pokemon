@@ -8,7 +8,7 @@ const router = express.Router();
 router.post("/", async (req, res, next) => {
   try {
     const newTrainer = await db.Trainer.create(req.body);
-    res.send(newTrainer);
+    res.send(`${newTrainer.username} created!`);
   } catch (err) {
     console.error(err);
     next(err);
@@ -18,11 +18,7 @@ router.post("/", async (req, res, next) => {
 // Add GET /trainers route
 router.get("/", async (req, res, next) => {
   try {
-    const trainers = await db.Trainer.findAll({
-      attributes: {
-        exclude: ["password"],
-      },
-    });
+    const trainers = await db.Trainer.findAll();
     res.send(trainers);
   } catch (err) {
     console.error(err);

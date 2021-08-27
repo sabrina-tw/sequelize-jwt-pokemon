@@ -1,7 +1,7 @@
-'use strict';
-const bcrypt = require('bcryptjs');
+"use strict";
+const bcrypt = require("bcryptjs");
 
-const { Model } = require('sequelize');
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Trainer extends Model {
     /**
@@ -12,36 +12,42 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
     }
-  };
-  Trainer.init({
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false, // here
-      unique: true,
+  }
+  Trainer.init(
+    {
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false, // here
+        unique: true,
+      },
+      password: {
+        type: DataTypes.STRING,
+        allowNull: false, // here
+      },
     },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false, // here
+    {
+      sequelize,
+      modelName: "Trainer",
+      defaultScope: {
+        attributes: { exclude: ["password"] },
+      },
+      hooks: {
+        // add beforeCreate hook here
+        beforeCreate: async (user) => {
+          if (user.password) {
+            const salt = await bcrypt.genSaltSync(10); // this generates the salt
+            user.password = bcrypt.hashSync(user.password, salt); // this sets the hashed value as the password
+          }
+        },
+        // add beforeUpdate hook here
+        beforeUpdate: async (user) => {
+          if (user.password) {
+            const salt = await bcrypt.genSaltSync(10);
+            user.password = bcrypt.hashSync(user.password, salt);
+          }
+        },
+      },
     }
-  }, {
-    sequelize,
-    modelName: 'Trainer',
-    hooks: {
-      // add beforeCreate hook here
-      beforeCreate: async (user) => {
-        if (user.password) {
-          const salt = await bcrypt.genSaltSync(10); // this generates the salt
-          user.password = bcrypt.hashSync(user.password, salt); // this sets the hashed value as the password
-        }
-      },
-      // add beforeUpdate hook here
-      beforeUpdate: async (user) => {
-        if (user.password) {
-          const salt = await bcrypt.genSaltSync(10);
-          user.password = bcrypt.hashSync(user.password, salt);
-        }
-      },
-    },
-  });
+  );
   return Trainer;
 };
