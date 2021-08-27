@@ -1,8 +1,10 @@
 const express = require("express");
 const app = express();
 const db = require("./db/models/index");
+const pokemonRouter = require("./routes/pokemon.route.js");
 
 app.use(express.json());
+app.use("/pokemons", pokemonRouter);
 
 db.sequelize.sync();
 
