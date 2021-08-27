@@ -36,7 +36,12 @@ router.get("/search/:username", async (req, res, next) => {
     // [db.Sequelize.Op.iLike] allows you to do case-insensitive + partial querying
     // e.g. "Sa" will return Samantha, Samuel..
     const trainer = await db.Trainer.findAll({
-      where: { username: { [Op.iLike]: "%" + username + "%" } },
+      where: {
+        username: { [Op.iLike]: "%" + username + "%" },
+      },
+      attributes: {
+        exclude: ["password"],
+      },
     });
     res.send(trainer);
   } catch (err) {
