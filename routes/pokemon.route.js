@@ -14,4 +14,15 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.post("/", async (req, res, next) => {
+  try {
+    const pokemon = req.body;
+
+    const newPokemon = await db.Pokemon.create(pokemon);
+    res.status(201).json(newPokemon);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
