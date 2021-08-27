@@ -3,7 +3,6 @@ const router = express.Router();
 
 const db = require("../db/models/index");
 
-// route to GET /pokemons
 router.get("/", async (req, res, next) => {
   try {
     const pokemons = await db.Pokemon.findAll();
@@ -35,6 +34,23 @@ router.get("/:id", async (req, res, next) => {
     } else {
       res.json(pokemon);
     }
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.delete("/:id", async (req, res, next) => {
+  try {
+    const pokemonId = req.params.id;
+    const pokemonToDelete = await db.Pokemon.findByPk(pokemonId);
+
+    await db.Pokemon.destroy({
+      where: {
+        id: pokemonId,
+      },
+    });
+
+    res.json(pokemonToDelete);
   } catch (error) {
     next(error);
   }
