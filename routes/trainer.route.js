@@ -14,4 +14,19 @@ router.post("/", async (req, res, next) => {
   }
 });
 
+// Add GET /trainers route
+router.get("/", async (req, res, next) => {
+  try {
+    const trainers = await db.Trainer.findAll({
+      attributes: {
+        exclude: ["password"],
+      },
+    });
+    res.send(trainers);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 module.exports = router;
