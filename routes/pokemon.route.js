@@ -29,11 +29,9 @@ router.get("/:id", async (req, res, next) => {
     const pokemonId = req.params.id;
     const pokemon = await db.Pokemon.findByPk(pokemonId); // returns null if not found
 
-    if (pokemon === null) {
-      res.sendStatus(404);
-    } else {
-      res.json(pokemon);
-    }
+    if (pokemon === null) return res.sendStatus(404);
+
+    res.json(pokemon);
   } catch (error) {
     next(error);
   }
@@ -43,6 +41,8 @@ router.delete("/:id", async (req, res, next) => {
   try {
     const pokemonId = req.params.id;
     const pokemonToDelete = await db.Pokemon.findByPk(pokemonId);
+
+    if (pokemonToDelete === null) return res.sendStatus(404);
 
     await db.Pokemon.destroy({
       where: {
