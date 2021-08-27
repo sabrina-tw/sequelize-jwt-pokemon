@@ -64,7 +64,7 @@ router.put("/:id", async (req, res, next) => {
     if (pokemonToUpdate === null) return res.sendStatus(404);
     await pokemonToUpdate.update(req.body);
 
-    res.json(pokemonToUpdate);
+    res.json({ message: `Updated ${pokemonToUpdate.name} successfully!` });
   } catch (error) {
     next(error);
   }
