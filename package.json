@@ -2,6 +2,9 @@
   "name": "sequelize-jwt-pokemon",
   "version": "1.0.0",
   "description": "",
+  "engines": {
+    "node": "14.x"
+  },
   "main": "index.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",
