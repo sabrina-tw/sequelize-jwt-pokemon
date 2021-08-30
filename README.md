@@ -12,7 +12,10 @@ If connection to the database fails for whatever reason, check that these are in
 
 # TODO
 
-- [x] add association between Trainer and Pokemon models
-  - includes create a fresh migration file (Pokemon will need `trainerId`)
+- [x] deploy to Heroku with connection to db (Heroku Postgres)
+  - https://sequelize-jwt-pokemon.herokuapp.com/trainers (this should retrieve an array of Trainers)
+- [ ] add script to run db migrations on production with sequelize-cli
+- [ ] add association between Trainer and Pokemon models
+  - includes creating a fresh migration file (Pokemon will need `trainerId`)
 - [ ] add simple frontend with React and re-deploy
   - requires cors configuration
