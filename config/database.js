@@ -14,7 +14,7 @@ module.exports = {
     dialect: "postgres",
   },
   production: {
-    use_env_variable: `${process.env.DATABASE_URL}?sslmode=require`,
+    use_env_variable: process.env.DATABASE_URL,
     username: process.env.PG_USER,
     password: process.env.PG_PASS,
     database: process.env.PG_DB_NAME,
@@ -22,10 +22,7 @@ module.exports = {
     port: process.env.PG_PORT,
     dialect: "postgres",
     dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
+      ssl: true,
     },
   },
 };
