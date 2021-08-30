@@ -50,6 +50,16 @@ See [stackoverflow](https://stackoverflow.com/questions/61350186/how-to-solve-th
 
 DB migration will fail without `PGSSLMODE=no-verify`. See: https://github.com/sequelize/sequelize/issues/956#issuecomment-790798772
 
+# Associations
+
+Generate new migration file
+
+```
+npx sequelize migration:generate --name add-trainerid-on-pokemon
+```
+
+Add columns if necessary, and define the associations in the model files. See: https://github.com/sabrina-tw/sequelize-jwt-pokemon/commit/eb871f2167cca519c5fe77873b4818d4fc30ea7d (example for adding association to Pokemon/Trainer)
+
 # TODO
 
 - [x] deploy to Heroku with connection to db (Heroku Postgres)
