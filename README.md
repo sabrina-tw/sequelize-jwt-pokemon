@@ -40,7 +40,7 @@ If connection to the database fails for whatever reason, check that these are in
 
 See [stackoverflow](https://stackoverflow.com/questions/61350186/how-to-solve-the-database-connection-error-sequelizeconnectionerror)
 
-### Running migrations on production
+### Running migrations on Heroku
 
 1. [package.json](https://github.com/sabrina-tw/sequelize-jwt-pokemon/blob/main/package.json#L27)
 
@@ -50,7 +50,9 @@ See [stackoverflow](https://stackoverflow.com/questions/61350186/how-to-solve-th
 
 DB migration will fail without `PGSSLMODE=no-verify`. See: https://github.com/sequelize/sequelize/issues/956#issuecomment-790798772
 
-# Associations
+# Sequelize
+
+### Adding associations
 
 Generate new migration file
 
@@ -60,6 +62,18 @@ npx sequelize migration:generate --name add-trainerid-on-pokemon
 
 Add columns if necessary, and define the associations in the model files. See: https://github.com/sabrina-tw/sequelize-jwt-pokemon/commit/eb871f2167cca519c5fe77873b4818d4fc30ea7d (example for adding association to Pokemon/Trainer)
 
+# Deploying with frontend
+
+We can deploy our application with React in 1 single Heroku app (the alternative is to deploy our backend to Heroku, and frontend to Netlify), but we will need to set some things up.
+
+In the root folder, create your React app:
+
+```
+npx create-react-app client
+```
+
+For further steps, see: https://github.com/sabrina-tw/sequelize-jwt-pokemon/commit/231c31a1be261dfcddda6016cd8ba0b2273a4932 (with comments)
+
 # TODO
 
 - [x] deploy to Heroku with connection to db (Heroku Postgres)
@@ -67,5 +81,4 @@ Add columns if necessary, and define the associations in the model files. See: h
 - [x] add script to run db migrations on production with sequelize-cli
 - [x] add association between Trainer and Pokemon models
   - includes creating a fresh migration file (Pokemon will need `trainerId`)
-- [ ] add simple frontend with React and re-deploy
-  - requires cors configuration
+- [x] add simple frontend with React and re-deploy
