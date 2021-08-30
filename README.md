@@ -16,6 +16,8 @@ https://sequelize-jwt-pokemon.herokuapp.com
 
 Check in your Heroku config vars, `DATABASE_URL` should have been created by Heroku Postgres.
 
+4. Add `JWT_SECRET_KEY` in your Heroku config vars
+
 ### Connection to Heroku Postgres database
 
 If connection to the database fails for whatever reason, check that these are in place as they may be the potential missing piece:
