@@ -2,13 +2,49 @@
 
 https://sequelize-jwt-pokemon.herokuapp.com
 
-## Troubleshooting
+1. specify node version in package.json
+
+```js
+  "engines": {
+    "node": "14.x"
+  },
+```
+
+### Connection to Heroku Postgres database
 
 If connection to the database fails for whatever reason, check that these are in place as they may be the potential missing piece:
 
-- https://github.com/sabrina-tw/sequelize-pokemon/blob/242187a27735a7b7805ad8f005e2ebc2819349b9/models/index.js#L13
-- add dialectOptions: https://github.com/sabrina-tw/sequelize-pokemon/blob/main/config/config.js#L26-L31 (see: https://stackoverflow.com/questions/61350186/how-to-solve-the-database-connection-error-sequelizeconnectionerror)
-- https://github.com/sabrina-tw/sequelize-pokemon/blob/main/config/config.js#L19 (DATABASE_URL is used for Heroku Postgres)
+1. `process.env[config.use_env_variable]` -> `config.use_env_variable`
+   https://github.com/sabrina-tw/sequelize-jwt-pokemon/blob/main/db/models/index.js#L13
+
+2. add dialectOptions:
+
+```js
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+```
+
+https://github.com/sabrina-tw/sequelize-jwt-pokemon/blob/main/config/database.js#L24-L29 (see [stackoverflow](https://stackoverflow.com/questions/61350186/how-to-solve-the-database-connection-error-sequelizeconnectionerror))
+
+### Running migrations on production (WIP)
+
+1. update config/database.js
+
+```js
+use_env_variable: `${process.env.DATABASE_URL}?sslmode=require`;
+```
+
+https://github.com/sabrina-tw/sequelize-pokemon/blob/main/config/config.js#L19 (DATABASE_URL is used for Heroku Postgres)
+
+2.
+
+```js
+  "heroku-postbuild": "npx sequelize db:migrate --url $DATABASE_URL?sslmode=require --env production"
+```
 
 # TODO
 
