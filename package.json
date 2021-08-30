@@ -24,7 +24,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "start:dev": "nodemon index.js",
-    "heroku-postbuild": "npx sequelize db:migrate --url $DATABASE_URL?sslmode=require --env production"
+    "heroku-postbuild": "PGSSLMODE=no-verify npx sequelize-cli db:migrate --url $DATABASE_URL --env production"
   },
   "keywords": [],
   "author": "",
