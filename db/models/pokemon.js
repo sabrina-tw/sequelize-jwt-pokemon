@@ -8,7 +8,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Pokemon.belongsTo(models.Trainer, {
+        foreignKey: "trainerId",
+        allowNull: true,
+      });
     }
   }
   Pokemon.init(
@@ -27,6 +30,9 @@ module.exports = (sequelize, DataTypes) => {
       },
       category: {
         type: DataTypes.STRING,
+      },
+      trainerId: {
+        type: DataTypes.INTEGER,
       },
     },
     {

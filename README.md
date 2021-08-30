@@ -55,7 +55,7 @@ DB migration will fail without `PGSSLMODE=no-verify`. See: https://github.com/se
 - [x] deploy to Heroku with connection to db (Heroku Postgres)
   - https://sequelize-jwt-pokemon.herokuapp.com/trainers (this should retrieve an array of Trainers)
 - [x] add script to run db migrations on production with sequelize-cli
-- [ ] add association between Trainer and Pokemon models
+- [x] add association between Trainer and Pokemon models
   - includes creating a fresh migration file (Pokemon will need `trainerId`)
 - [ ] add simple frontend with React and re-deploy
   - requires cors configuration
