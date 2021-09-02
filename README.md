@@ -88,3 +88,4 @@ For further steps, see: https://github.com/sabrina-tw/sequelize-jwt-pokemon/comm
 - [x] add association between Trainer and Pokemon models
   - includes creating a fresh migration file (Pokemon will need `trainerId`)
 - [x] add simple frontend with React and re-deploy
+- [ ] implement seed file to seed Pokemon data
