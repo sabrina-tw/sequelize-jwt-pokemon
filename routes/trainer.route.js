@@ -29,6 +29,23 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+router.get("/pokemons", auth, async (req, res, next) => {
+  try {
+    const trainer = await db.Trainer.findOne({
+      where: { username: req.user.username },
+    });
+
+    const trainerWithPokemons = await db.Trainer.findOne({
+      where: { id: trainer.id },
+      include: { model: db.Pokemon },
+    });
+
+    res.send(trainerWithPokemons.Pokemons);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.get("/search/:username", auth, async (req, res, next) => {
   try {
     const username = req.params.username;
