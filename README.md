@@ -52,6 +52,10 @@ See [stackoverflow](https://stackoverflow.com/questions/61350186/how-to-solve-th
 
 DB migration will fail without `PGSSLMODE=no-verify`. See: https://github.com/sequelize/sequelize/issues/956#issuecomment-790798772
 
+In production, you will need to acquire an SSL certificate to enable SSL verification, for security: https://devcenter.heroku.com/articles/acquiring-an-ssl-certificate
+
+What is Postgres SSLMODE?: https://ankane.org/postgres-sslmode-explained
+
 # Sequelize
 
 ### Adding associations
